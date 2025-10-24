@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программа лояльности</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Загрузка -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Загрузка...</p>
+        </div>
+
+        <!-- Основной контент -->
+        <div id="main-content" style="display: none;">
+            <!-- Навигация -->
+            <nav class="navigation">
+                <button class="nav-item active" data-page="balance">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-label">Баланс</span>
+                </button>
+                <button class="nav-item" data-page="catalog">
+                    <span class="nav-icon">🎁</span>
+                    <span class="nav-label">Награды</span>
+                </button>
+                <button class="nav-item" data-page="history">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">История</span>
+                </button>
+                <button class="nav-item" data-page="profile">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Профиль</span>
+                </button>
+            </nav>
+
+            <!-- Страницы -->
+            <div class="pages">
+                <!-- Страница баланса -->
+                <div id="page-balance" class="page active">
+                    <div class="header">
+                        <h1>Мой баланс</h1>
+                    </div>
+
+                    <div class="balance-card">
+                        <div class="balance-info">
+                            <div class="balance-label">Доступно баллов</div>
+                            <div class="balance-amount" id="balance-amount">0</div>
+                        </div>
+                        <div class="balance-qr">
+                            <canvas id="user-qr-code"></canvas>
+                            <p class="qr-hint">Покажите QR-код кассиру</p>
+                        </div>
+                    </div>
+
+                    <div class="actions-section">
+                        <h2>Как заработать баллы</h2>
+                        <div class="action-cards">
+                            <div class="action-card">
+                                <div class="action-icon">🛒</div>
+                                <div class="action-content">
+                                    <h3>За покупки</h3>
+                                    <p>10 баллов за каждые 100₽</p>
+                                </div>
+                            </div>
+                            <div class="action-card">
+                                <div class="action-icon">♻️</div>
+                                <div class="action-content">
+                                    <h3>За утилизацию</h3>
+                                    <p>50 баллов за каждое устройство</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-section">
+                        <h2>Статистика</h2>
+                        <div class="stats-grid" id="user-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Покупок</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Устройств сдано</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Наград получено</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Страница каталога наград -->
+                <div id="page-catalog" class="page">
+                    <div class="header">
+                        <h1>Каталог наград</h1>
+                    </div>
+
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-category="all">Все</button>
+                        <button class="filter-tab" data-category="discount">Скидки</button>
+                        <button class="filter-tab" data-category="gift">Подарки</button>
+                        <button class="filter-tab" data-category="merchandise">Мерч</button>
+                    </div>
+
+                    <div class="rewards-grid" id="rewards-list">
+                        <!-- Динамически загружаются награды -->
+                    </div>
+                </div>
+
+                <!-- Страница истории -->
+                <div id="page-history" class="page">
+                    <div class="header">
+                        <h1>История операций</h1>
+                    </div>
+
+                    <div class="transactions-list" id="transactions-list">
+                        <!-- Динамически загружается история -->
+                    </div>
+                </div>
+
+                <!-- Страница профиля -->
+                <div id="page-profile" class="page">
+                    <div class="header">
+                        <h1>Профиль</h1>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="profile-avatar">
+                            <div class="avatar-circle" id="user-avatar">
+                                <span id="avatar-initials"></span>
+                            </div>
+                        </div>
+                        <div class="profile-info" id="profile-info">
+                            <!-- Динамически загружается информация -->
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="profile-btn" id="btn-edit-profile">
+                            ✏️ Редактировать профиль
+                        </button>
+                        <button class="profile-btn" id="btn-my-rewards">
+                            🎁 Мои награды
+                        </button>
+                        <button class="profile-btn" id="btn-stores">
+                            📍 Магазины
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальные окна -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close">&times;</button>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/qrcode.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
