@@ -35,3 +35,6 @@ build/
 tmp/
 temp/
 *.tmp
+# OS
+.DS_Store
+Thumbs.db
